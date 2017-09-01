@@ -4,8 +4,26 @@ canvas.height = window.innerHeight - 8;
 canvas.width = window.innerWidth - 8;
 var ctx = canvas.getContext('2d');
 
+var circleArray = [];
 
-// console.log(rgb);
+var mouse = {
+	x: undefined,
+	y: undefined
+}
+
+var maxRadius = 60;
+
+
+window.addEventListener('mousemove', function (event) { 
+	mouse.x = event.x;
+	mouse.y = event.y;
+});
+
+window.addEventListener('resize', function () {
+	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
+})
+
 
 function Circle(x,y,dx,dy,radius) {
 	this.x = x;
@@ -13,6 +31,7 @@ function Circle(x,y,dx,dy,radius) {
 	this.dx = dx;
 	this.dy = dy;
 	this.radius = radius;
+	this.minRadius = radius;
 
 
 	var r = Math.floor(Math.random() * 256);
@@ -22,7 +41,6 @@ function Circle(x,y,dx,dy,radius) {
 	var rgb = 'rgba('+r+ ', ' +g+ ', ' +b+ ', ' +a+ ')';
 
 	this.draw = function () {
-		
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, Math.PI * 2, false);
 		ctx.fillStyle = rgb;
@@ -43,16 +61,29 @@ function Circle(x,y,dx,dy,radius) {
 
 		this.draw();
 
+
+		if (mouse.x - this.x < 50 && mouse.x - this.x > -50 
+			&& mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+
+			if (this.radius < maxRadius) {
+				this.radius += 3;
+			}
+			
+		} 
+
+		else if (this.radius > this.minRadius){
+			this.radius -= 1;
+		}
 	}
 }
 
-var circleArray = [];
-for (var i = 0; i < 100; i++) {
 
-	var radius = Math.random() * 70;
+for (var i = 0; i < 1200; i++) {
+
+	var radius = Math.random() * 10 + 1;
 	var x = Math.random() * (innerWidth - radius * 2) + radius;
 	var y = Math.random() * (innerHeight - radius * 2) + radius;
-	var speed = 5;
+	var speed = 3;
 	var dx = (Math.random() - 0.5) * speed;
 	var dy = (Math.random() - 0.5) * speed;
 	
@@ -60,12 +91,11 @@ for (var i = 0; i < 100; i++) {
 	circleArray.push(new Circle(x,y,dx,dy,radius));
 }
 
-console.log(circleArray);
 
 function animate() {
 	requestAnimationFrame(animate);
 	ctx.clearRect(0,0, innerWidth, innerHeight)
-	
+
 
 	for (var i = 0; i< circleArray.length; i++) {
 		circleArray[i].update();
