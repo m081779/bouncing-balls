@@ -11,7 +11,7 @@ var mouse = {
 	y: undefined
 }
 
-var maxRadius = 60;
+var maxRadius = 150;
 
 
 window.addEventListener('mousemove', function (event) { 
@@ -78,7 +78,7 @@ function Circle(x,y,dx,dy,radius) {
 }
 
 
-for (var i = 0; i < 1200; i++) {
+for (var i = 0; i < 800; i++) {
 
 	var radius = Math.random() * 10 + 1;
 	var x = Math.random() * (innerWidth - radius * 2) + radius;
