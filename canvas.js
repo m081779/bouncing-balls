@@ -1,7 +1,7 @@
 var canvas = document.querySelector('canvas');
 
-canvas.height = window.innerHeight - 8;
-canvas.width = window.innerWidth - 8;
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
 var ctx = canvas.getContext('2d');
 
 var circleArray = [];
@@ -14,7 +14,7 @@ var mouse = {
 var maxRadius = 150;
 
 
-window.addEventListener('mousemove', function (event) { 
+window.addEventListener('mousemove', function (event) {
 	mouse.x = event.x;
 	mouse.y = event.y;
 });
@@ -62,14 +62,14 @@ function Circle(x,y,dx,dy,radius) {
 		this.draw();
 
 
-		if (mouse.x - this.x < 50 && mouse.x - this.x > -50 
+		if (mouse.x - this.x < 50 && mouse.x - this.x > -50
 			&& mouse.y - this.y < 50 && mouse.y - this.y > -50) {
 
 			if (this.radius < maxRadius) {
 				this.radius += 3;
 			}
-			
-		} 
+
+		}
 
 		else if (this.radius > this.minRadius){
 			this.radius -= 1;
@@ -86,7 +86,7 @@ for (var i = 0; i < 800; i++) {
 	var speed = 3;
 	var dx = (Math.random() - 0.5) * speed;
 	var dy = (Math.random() - 0.5) * speed;
-	
+
 
 	circleArray.push(new Circle(x,y,dx,dy,radius));
 }
